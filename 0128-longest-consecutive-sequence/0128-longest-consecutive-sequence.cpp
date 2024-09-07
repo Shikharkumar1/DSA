@@ -1,8 +1,3 @@
-#include <vector>
-#include <algorithm>
-#include <climits>
-using namespace std;
-
 class Solution {
 public:
     int longestConsecutive(vector<int>& nums) {
@@ -23,6 +18,6 @@ public:
             }
             longest = max(longest, cnt);
         }
-        return longest; // Move return statement outside the loop
+        return longest;
     }
 };
