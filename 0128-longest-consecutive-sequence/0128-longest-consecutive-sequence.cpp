@@ -1,22 +1,28 @@
+#include <vector>
+#include <algorithm>
+#include <climits>
+using namespace std;
+
 class Solution {
 public:
     int longestConsecutive(vector<int>& nums) {
-        if (nums.empty()) return 0;
-        unordered_set<int> st(nums.begin(), nums.end());
-        int longest = 0;
-        for (int num : st) {
-            if (!st.count(num - 1)) {
-                int currentNum = num;
-                int currentStreak = 1;
-                while (st.count(currentNum + 1)) {
-                    currentNum += 1;
-                    currentStreak += 1;
-                }
-                longest = max(longest, currentStreak);
-            }
-        }
+        if (nums.size() == 0) return 0;
+        sort(nums.begin(), nums.end());
+        int n = nums.size();
+        int lastSmaller = INT_MIN;
+        int cnt = 0;
+        int longest = 1;
 
-        return longest;
-        
+        for (int i = 0; i < n; i++) {
+            if (nums[i] - 1 == lastSmaller) {
+                cnt += 1;
+                lastSmaller = nums[i];
+            } else if (lastSmaller != nums[i]) {
+                cnt = 1;
+                lastSmaller = nums[i];
+            }
+            longest = max(longest, cnt);
+        }
+        return longest; // Move return statement outside the loop
     }
 };
